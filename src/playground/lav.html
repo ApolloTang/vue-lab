@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Vue lab</title>
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      padding-top:100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div :title="message">hover mouse over me to see title</div>
+    </br>
+
+    <div>{{ message }}</div>
+    <input v-model="message">
+    </br>
+    <button @click="reverseMsg">Reverse Message</button>
+
+    </br>
+    <div v-if="seen">now u see me</div>
+    </br>
+
+    <div><ol><li v-for="item in collection" v-html="item"/></ol></div>
+    </br>
+
+    <div><ol>
+      <todo-item
+        v-for="todo in todos"
+        :prop1="todo.txt"
+        :key="todo.id"
+      />
+    </ol></div>
+    <input
+      v-model="newTodo"
+      @keyup.enter="addTodo"
+      placeholder="Add a new todo"
+    >
+    </br>
+
+  </div>
+  <script src="http://localhost:9091/less/dist/less.js"></script>
+  <script src="http://localhost:9091/lodash.js"></script>
+  <script src="http://localhost:9091/vue.js"></script>
+  <script>
+    Vue.component('todo-item', {
+      props: ['prop1'],
+      template: '<li>{{prop1}}</li>'
+    })
+
+    let app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          message: 'hello world',
+          seen:false,
+          collection: [ 'a', 'b', 'c' ],
+          todos: [ {id:1, txt:'buy milk'} , {id:2, txt:'buy vege'} ],
+          newTodo: ''
+        }
+      },
+      methods: {
+        reverseMsg() {
+          console.log('message reversed')
+          this.message = this.message.split(' ').reverse().join(' ')
+        },
+        addTodo() {
+          this.todos.push({id:_.uniqueId('todo'), txt: this.newTodo})
+          this.newTodo = ''
+        },
+      }
+    });
+
+    setTimeout(()=>{
+      console.log('changed')
+      app.seen = true
+      app.collection.push('e')
+    }, 2000)
+
+  </script>
+</body>
+
+</html>

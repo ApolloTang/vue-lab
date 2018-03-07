@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Vue lab</title>
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+  </style>
+</head>
+
+<body>
+  <div id="counter-event-example">
+    <child-component
+       :parentData="parentData"
+       @interface="handleFcAfterDateBack">
+    </child-component>
+    <child-component
+       :parentData="parentData"
+       @interface="handleFcAfterDateBack">
+    </child-component>
+  </div>
+  <script src="http://localhost:9091/less/dist/less.js"></script>
+  <script src="http://localhost:9091/lodash.js"></script>
+  <script src="http://localhost:9091/vue.js"></script>
+  <script>
+    // https://medium.com/@sky790312/about-vue-2-parent-to-child-props-af3b5bb59829
+  const vm = new Vue({
+    el:'#counter-event-example',
+    data: () {
+      return {
+        parentData: 'init data'
+      }
+    },
+    method: {
+      handleFcAfterDateBack: function (event) {
+        console.log('data after child handle: ', event) // get the data after child dealing
+      }
+    }
+  })
+  </script>
+</body>
+
+</html>
