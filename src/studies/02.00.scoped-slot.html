@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Vue lab</title>
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      padding-top:100px;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="http://localhost:9091/less/dist/less.js"></script>
+  <script src="http://localhost:9091/lodash.js"></script>
+  <script src="http://localhost:9091/vue.js"></script>
+
+  <div id="app">
+    <ul>
+     <item v-for="item in coll" :item-text="item" :key="_.uniqueId()" ></item>
+    </ul>
+  </div>
+  <script>
+    Vue.component('item', {
+      template: `
+        <li>{{itemText}}</li>
+      `,
+      props: ['itemText']
+    })
+
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          coll: [1,2,3,4]
+        }
+      }
+    })
+  </script>
+
+
+  <hr>
+  <div id="parrent2">
+    <ul>
+     <item-scoped v-for="item in coll" :item-text="item" :key="_.uniqueId()" >
+       <span slot="slotOne">(some text)</span>
+       <span slot-scope="myScope">
+         <span>xxx</span>
+         <span>{{myScope.text2}}</span>
+       </span>
+     </item-scoped>
+    </ul>
+  </div>
+
+  <script>
+    Vue.component('itemScoped', {
+      template: `
+        <li>
+          <slot name="slotOne"></slot>
+          <span>{{itemText}}</span>
+          <slot text2="(content of text2)"></slot>
+        </li>
+      `,
+      props: ['itemText']
+    })
+    new Vue({
+      el: '#parrent2',
+      data() {
+        return {
+          coll: [5,6,7]
+        }
+      }
+    })
+  </script>
+
+</body>
+
+</html>
