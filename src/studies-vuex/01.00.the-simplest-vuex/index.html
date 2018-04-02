@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Vue lab</title>
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      padding-top:100px;
+    }
+  </style>
+</head>
+
+<body>
+
+<script src="http://localhost:9091/less/dist/less.js"></script>
+<script src="http://localhost:9091/lodash.js"></script>
+<script src="http://localhost:9091/vue.js"></script>
+<script src="http://localhost:9091/vuex.v3.0.1.js"></script>
+
+<div id="app">
+</div>
+
+<script>
+  console.log( `
+    _: version ${_.VERSION} </br>
+    less: version ${less.version} </br>
+    Vue: version ${Vue.version} </br>
+    Vuex: version ${Vuex.version} </br>
+  `);
+</script>
+
+<script type="module">
+import main from './main.js'
+console.log(main)
+</script>
+
+</body>
+
+</html>
+
