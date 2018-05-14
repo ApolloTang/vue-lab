@@ -14,33 +14,45 @@
 
 <body>
   <div id="app">
-    <div :title="message">hover mouse over me to see title</div>
-    </br>
+    <hr>
 
-    <div>{{ message }}</div>
-    <input v-model="message">
-    </br>
-    <button @click="reverseMsg">Reverse Message</button>
+      <div :title="message">hover mouse over me to see title</div>
 
-    </br>
-    <div v-if="seen">now u see me</div>
-    </br>
+    <hr>
 
-    <div><ol><li v-for="item in collection" v-html="item"/></ol></div>
-    </br>
+      <div>{{ message }}</div>
+      <input v-model="message">
+      </br>
+      <button @click="reverseMsg">Reverse Message</button>
 
-    <div><ol>
-      <todo-item
-        v-for="todo in todos"
-        :prop1="todo.txt"
-        :key="todo.id"
-      />
-    </ol></div>
+    <hr>
+
+      <button @click="handleHide">{{buttonText}}</button>
+      <div v-if="isVisible">now u see me</div>
+      <div v-else="isVisible"></br></div>
+
+    <hr>
+
+      <div>
+        <ol><li v-for="item in collection" v-html="item"/></ol>
+      </div>
+
+    <hr>
+
+      <div><ol>
+        <todo-item
+          v-for="todo in todos"
+          :prop1="todo.txt"
+          :key="todo.id"
+        />
+      </ol></div>
+
     <input
       v-model="newTodo"
       @keyup.enter="addTodo"
       placeholder="Add a new todo"
     >
+
     </br>
 
   </div>
@@ -58,10 +70,16 @@
       data() {
         return {
           message: 'hello world',
-          seen:false,
+          isVisible:true,
           collection: [ 'a', 'b', 'c' ],
           todos: [ {id:1, txt:'buy milk'} , {id:2, txt:'buy vege'} ],
           newTodo: ''
+        }
+      },
+      computed: {
+        buttonText() {
+          const showOrHide = (this.isVisible) ? 'hide' : 'show'
+          return `click me to ${showOrHide}`
         }
       },
       methods: {
@@ -73,6 +91,9 @@
           this.todos.push({id:_.uniqueId('todo'), txt: this.newTodo})
           this.newTodo = ''
         },
+        handleHide() {
+          this.isVisible = (this.isVisible) ? false : true
+        }
       }
     });
 
