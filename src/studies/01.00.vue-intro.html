@@ -15,30 +15,36 @@
 <body>
   <div id="app">
     <hr>
-
+    <br>
       <div :title="message">hover mouse over me to see title</div>
-
+    <br>
     <hr>
-
+    <br>
       <div>{{ message }}</div>
       <input v-model="message">
       </br>
       <button @click="reverseMsg">Reverse Message</button>
-
+    <br>
     <hr>
-
+    <br>
       <button @click="handleHide">{{buttonText}}</button>
       <div v-if="isVisible">now u see me</div>
-      <div v-else="isVisible"></br></div>
-
+      <div v-else></br></div>
+    <br>
     <hr>
-
+    <br>
+      <button @click="show = !show">{{`show = ${show}`}}</button>
+      <div v-if="show">now u see me</div>
+      <div v-else></br></div>
+    <br>
+    <hr>
+    <br>
       <div>
         <ol><li v-for="item in collection" v-html="item"/></ol>
       </div>
-
+    <br>
     <hr>
-
+    <br>
       <div><ol>
         <todo-item
           v-for="todo in todos"
@@ -69,6 +75,7 @@
       el: '#app',
       data() {
         return {
+          show:true,
           message: 'hello world',
           isVisible:true,
           collection: [ 'a', 'b', 'c' ],
