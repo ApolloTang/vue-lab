@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Vue lab</title>
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      padding-top:100px;
+    }
+
+    h1 {
+      /* opacity: 0; */
+    }
+
+    .fade-enter {
+      opacity: 0;
+    }
+    .fade-enter-active {
+      transition: opacity 5s ease-out;
+    }
+    .fade-enter-to {
+      opacity: 1;
+    }
+
+    .fade-leave {
+      opacity: 1;
+    }
+    .fade-leave-active {
+      transition: opacity 5s ease-out;
+    }
+    .fade-leave-to {
+      opacity: 0;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="show = !show">Transition</button>
+    <transition name="fade">
+      <h1 v-if="show">Hello</h1>
+    </transition>
+  </div>
+  <script src="http://localhost:9091/less/dist/less.js"></script>
+  <script src="http://localhost:9091/lodash.js"></script>
+  <script src="http://localhost:9091/vue.js"></script>
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          show:true
+        }
+      },
+      created: function() {
+        console.log('Vue.version', Vue.version)
+      },
+      computed: {
+      },
+      watch: {
+        show: function(show_new, show_prev){
+          console.log(show_new)
+        }
+      },
+      methods: {
+      }
+    });
+  </script>
+</body>
+
+</html>
