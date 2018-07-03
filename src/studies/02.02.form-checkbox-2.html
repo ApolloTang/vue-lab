@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Vue lab</title>
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+  </style>
+</head>
+
+<body>
+<script src="http://localhost:9091/babel/babel-standalone@7.0.0-alpha.20.min.js"></script>
+<script src="http://localhost:9091/babel/babel-polyfill@7.0.0-alpha.20.min.js"></script>
+<script src="http://localhost:9091/vue/vue.js"></script>
+<script src="http://localhost:9091/less/dist/less.min.js"></script>
+<script src="http://localhost:9091/lodash/lodash-4.17.10.min.js"></script>
+
+<div id="app">
+  <checkbox-item
+    v-for="checkboxModel in checkboxModels"
+    :checkbox-model="checkboxModel"   got-cha="!!! attribute name has to kebab-case !!!"
+    @is-checked="handleCheck(checkboxModel, $event)"
+    :key="checkboxModel.v"
+  ></checkbox-item>
+  <br>
+  <span>Checked: {{ checked }}</span>
+</div>
+
+<script>
+Vue.component('checkbox-item', {
+  props: {
+    checkboxModel: {
+      type: Object,
+      default() {return {value: undefined}}
+     }
+  },
+  data() {
+    return {
+      value: this.checkboxModel.v,
+      isChecked: this.checkboxModel.checked
+    }
+  },
+  watch: {
+    isChecked(v) { this.$emit('is-checked', this.isChecked) }
+  },
+  template: `
+  <span>
+    <label :for="value">{{value}}</label>
+    <input
+      type="checkbox"
+      :id="value"
+      v-model="isChecked"
+    >
+  </span>
+  `
+})
+
+new Vue({
+  el: '#app',
+  data: {
+    opts: [{v:'a'}, {v:'b'}],
+    checked: ['a', 'b']
+  },
+  computed: {
+    checkboxModels() {
+      return this.opts.map(d=>( {
+        ...d,
+        checked: _.includes(this.checked, d.v)
+      }))
+    }
+  },
+  methods: {
+    handleCheck (opt, isChecked) {
+      isChecked ?
+        this.checked.push(opt.v) :
+        (this.checked = this.checked.filter(d=>d !== opt.v))
+    }
+  }
+})
+
+// https://medium.com/@sky790312/about-vue-2-parent-to-child-props-af3b5bb59829
+// https://stackoverflow.com/questions/43797010/dynamic-value-checkbox-vuejs-2
+// https://stackoverflow.com/questions/41812917/vue-2-receive-event-arguments-and-scope-variable-in-event-handler?noredirect=1&lq=1
+</script>
+
+</body>
+
+</html>
+

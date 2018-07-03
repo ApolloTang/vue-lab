@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Vue lab</title>
+  <style type="text/less">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+  </style>
+</head>
+
+<body>
+<script src="http://localhost:9091/babel/babel-standalone@7.0.0-alpha.20.min.js"></script>
+<script src="http://localhost:9091/babel/babel-polyfill@7.0.0-alpha.20.min.js"></script>
+<script src="http://localhost:9091/vue/vue.js"></script>
+<script src="http://localhost:9091/less/dist/less.min.js"></script>
+<script src="http://localhost:9091/lodash/lodash-4.17.10.min.js"></script>
+
+<div id="app">
+  <span v-for="opt in opts">
+    <label :for="opt.v">{{opt.v}}</label>
+    <input
+      type="checkbox"
+      :id="opt.v"
+      :value="opt.v"
+      v-model="checked" >
+  </span>
+  <br>
+  <span>Checked: {{ checked }}</span>
+</div>
+
+<script type="text/babel" >
+
+  Vue.config.devtools = true;
+
+  new Vue({
+    el: '#app',
+    data: {
+      opts: [{v:1}, {v:2}],
+      checked: [1, 2]
+    },
+  })
+
+</script>
+</body>
+
+</html>
+
