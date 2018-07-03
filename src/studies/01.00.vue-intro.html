@@ -6,71 +6,48 @@
   <title>Vue lab</title>
   <style type="text/less">
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      padding-top:100px;
-    }
   </style>
 </head>
 
 <body>
   <div id="app">
-    <hr>
-    <br>
+    <hr><br>
+
       <div :title="message">hover mouse over me to see title</div>
-    <br>
-    <hr>
-    <br>
+
+    <br><hr><br>
+
       <div>{{ message }}</div>
       <input v-model="message">
       </br>
       <button @click="reverseMsg">Reverse Message</button>
-    <br>
-    <hr>
-    <br>
+
+    <br><hr><br>
+
       <button @click="handleHide">{{buttonText}}</button>
       <div v-if="isVisible">now u see me</div>
       <div v-else></br></div>
-    <br>
-    <hr>
-    <br>
+
+    <br><hr><br>
+
       <button @click="show = !show">{{`show = ${show}`}}</button>
       <div v-if="show">now u see me</div>
       <div v-else></br></div>
-    <br>
-    <hr>
-    <br>
+
+    <br><hr><br>
+
       <div>
         <ol><li v-for="item in collection" v-html="item"/></ol>
       </div>
-    <br>
-    <hr>
-    <br>
-      <div><ol>
-        <todo-item
-          v-for="todo in todos"
-          :prop1="todo.txt"
-          :key="todo.id"
-        />
-      </ol></div>
-
-    <input
-      v-model="newTodo"
-      @keyup.enter="addTodo"
-      placeholder="Add a new todo"
-    >
-
-    </br>
 
   </div>
-  <script src="http://localhost:9091/less/dist/less.js"></script>
-  <script src="http://localhost:9091/lodash.js"></script>
-  <script src="http://localhost:9091/vue.js"></script>
-  <script>
-    Vue.component('todo-item', {
-      props: ['prop1'],
-      template: '<li>{{prop1}}</li>'
-    })
+  <script src="http://localhost:9091/babel/babel-standalone@7.0.0-alpha.20.min.js"></script>
+  <script src="http://localhost:9091/babel/babel-polyfill@7.0.0-alpha.20.min.js"></script>
+  <script src="http://localhost:9091/vue/vue.js"></script>
+  <script src="http://localhost:9091/less/dist/less.min.js"></script>
+  <script src="http://localhost:9091/lodash/lodash-4.17.10.min.js"></script>
 
+  <script type="text/babel" >
     let app = new Vue({
       el: '#app',
       data() {
@@ -79,8 +56,6 @@
           message: 'hello world',
           isVisible:true,
           collection: [ 'a', 'b', 'c' ],
-          todos: [ {id:1, txt:'buy milk'} , {id:2, txt:'buy vege'} ],
-          newTodo: ''
         }
       },
       computed: {
@@ -93,10 +68,6 @@
         reverseMsg() {
           console.log('message reversed')
           this.message = this.message.split(' ').reverse().join(' ')
-        },
-        addTodo() {
-          this.todos.push({id:_.uniqueId('todo'), txt: this.newTodo})
-          this.newTodo = ''
         },
         handleHide() {
           this.isVisible = (this.isVisible) ? false : true
